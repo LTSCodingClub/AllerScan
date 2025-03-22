@@ -16,8 +16,8 @@ pygame.init()
 
 # Constants
 WIDTH, HEIGHT = 240, 320
-#WIDTH, HEIGHT = 800, 600
-ICON_WIDTH, ICON_HEIGHT = 75, 75 
+ICON_WIDTH, ICON_HEIGHT = 75, 75
+
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 GREEN = (102,255,179)
@@ -68,7 +68,7 @@ allergen_x_position = 0
 allergen_x_spacing = 80
 allergen_y_position = 55
 allergen_y_spacing = 80
-                
+               
 
 # Function to load food data from CSV
 def load_food_data(csv_filename):
@@ -88,9 +88,9 @@ def load_food_data(csv_filename):
                     "Gelatin": row[13], "NonVegan": row[14], "NonVegetarian": row[15], "Wheat": row[16], "Oats": row [17]
                 }
                 food_data[barcode] = {"name": name, "allergens": allergens}
-                
-                
-                
+               
+               
+               
     except FileNotFoundError:
         print("CSV file not found!")
     return food_data
@@ -105,14 +105,17 @@ def check_symbol_positions():
         if allergen_y_position > 160:
             allergen_x_position = 0
             allergen_y_position = allergen_y_position + allergen_y_spacing
-            
-    
+           
+   
 
 # Load food data
 food_data = load_food_data("foods.csv")
 
 # Set up display
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
+
+#screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+
 pygame.display.set_caption("AllerScan")
 
 # Input box
@@ -120,7 +123,7 @@ input_box = pygame.Rect(10, 10, 220, 40)
 color_active = pygame.Color('dodgerblue2')
 color_inactive = pygame.Color('lightskyblue3')
 color = color_inactive
-active = False
+active = True
 text = 'TEST'
 result = None
 allergen_warnings = []
@@ -129,21 +132,12 @@ running = True
 
 while running:
     screen.fill(WHITE)
-    
+   
     for event in pygame.event.get():
-      
-        if event.type == pygame.QUIT:
-            running = False
-          
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            if input_box.collidepoint(event.pos):
-                active = not active
-            else:
-                active = False
-            color = color_active if active else color_inactive
-          
+     
+         
         if event.type == pygame.KEYDOWN:
-          
+         
             if active:
                 if event.key == pygame.K_RETURN:
                     print(text)
@@ -151,7 +145,7 @@ while running:
                     if text == "Quit":
                       running = False
                       pygame.quit()
-                    
+                   
                     if text in food_data:
                         result = True
                         product_name = food_data[text]["name"]
@@ -164,16 +158,16 @@ while running:
                     text = text[:-1]
                 else:
                     text += event.unicode
-    
    
-                
+   
+               
     # Draw input box
     pygame.draw.rect(screen, color, input_box, 2)
     txt_surface = FONT.render(text, True, BLACK)
     screen.blit(txt_surface, (input_box.x + 10, input_box.y + 5))
-    
+   
     # Display result
-  
+ 
     if result is not None:
         if result:
          #   pygame.draw.rect(screen, color, input_box, 2)
@@ -184,8 +178,8 @@ while running:
             Product_text = font.render(product_name, True, RED, WHITE)
             #screen.blit(Product_text, (WIDTH // 2, HEIGHT // 2))
             screen.blit(Product_text, (2, HEIGHT // 2))
-            
-            
+           
+           
             if allergen_warnings:
                 #Allergen Warnings - Display suitable pics
                 allergen_x_position = 0
@@ -193,118 +187,118 @@ while running:
                 allergen_y_position = 55
                 allergen_y_spacing = 140
                  
-                
+               
                  
                 if "Celery" in allergen_warnings:
-                    
+                   
                     check_symbol_positions()
                     screen.blit(celery, (allergen_x_position, allergen_y_position))
                     allergen_x_position = allergen_x_position + allergen_x_spacing
-                    
-                    
+                   
+                   
                 if "Corn" in allergen_warnings:
-                    
+                   
                     check_symbol_positions()
                     screen.blit(corn, (allergen_x_position, allergen_y_position))
                     allergen_x_position = allergen_x_position + allergen_x_spacing
-                
+               
                 if "Eggs" in allergen_warnings:
-                
+               
                     check_symbol_positions()
                     screen.blit(eggs, (allergen_x_position, allergen_y_position))
                     allergen_x_position = allergen_x_position + allergen_x_spacing
-                    
+                   
                 if "Crustaceans" in allergen_warnings:
-                
+               
                     check_symbol_positions()
                     screen.blit(crustaceans, (allergen_x_position, allergen_y_position))
                     allergen_x_position = allergen_x_position + allergen_x_spacing
-            
+           
                 if "Fish" in allergen_warnings:
-                
+               
                     check_symbol_positions()
                     screen.blit(fish, (allergen_x_position, allergen_y_position))
                     allergen_x_position = allergen_x_position + allergen_x_spacing
-            
+           
                 if "Gluten" in allergen_warnings:
-                    
+                   
                     check_symbol_positions()
                     screen.blit(gluten, (allergen_x_position, allergen_y_position))
                     allergen_x_position = allergen_x_position + allergen_x_spacing
-                    
+                   
                 if "Milk" in allergen_warnings:
-                    
+                   
                     check_symbol_positions()
                     screen.blit(milk, (allergen_x_position, allergen_y_position))
                     allergen_x_position = allergen_x_position + allergen_x_spacing
-                    
+                   
                 if "Molusc" in allergen_warnings:
-                    
+                   
                     check_symbol_positions()
                     screen.blit(molusc, (allergen_x_position, allergen_y_position))
                     allergen_x_position = allergen_x_position + allergen_x_spacing
-                
+               
                 if "Mustard" in allergen_warnings:
-                
+               
                     check_symbol_positions()
                     screen.blit(mustard, (allergen_x_position, allergen_y_position))
                     allergen_x_position = allergen_x_position + allergen_x_spacing
-                    
+                   
                 if "Nuts" in allergen_warnings:
-                
+               
                     check_symbol_positions()
                     screen.blit(nuts, (allergen_x_position, allergen_y_position))
                     allergen_x_position = allergen_x_position + allergen_x_spacing
-            
+           
                 if "NonVegetarian" in allergen_warnings:
-                
+               
                     check_symbol_positions()
                     screen.blit(notVeg, (allergen_x_position, allergen_y_position))
                     allergen_x_position = allergen_x_position + allergen_x_spacing
-            
+           
                 if "Oats" in allergen_warnings:
-                
+               
                     check_symbol_positions()
                     screen.blit(oats, (allergen_x_position, allergen_y_position))
                     allergen_x_position = allergen_x_position + allergen_x_spacing
-            
+           
                 if "Peanut" in allergen_warnings:
-                
+               
                     check_symbol_positions()
                     screen.blit(peanut, (allergen_x_position, allergen_y_position))
                     allergen_x_position = allergen_x_position + allergen_x_spacing
-            
+           
                 if "Sesame" in allergen_warnings:
-                
+               
                     check_symbol_positions()
                     screen.blit(sesame, (allergen_x_position, allergen_y_position))
                     allergen_x_position = allergen_x_position + allergen_x_spacing
-            
+           
                 if "Soy" in allergen_warnings:
-                
+               
                     check_symbol_positions()
                     screen.blit(soy, (allergen_x_position, allergen_y_position))
                     allergen_x_position = allergen_x_position + allergen_x_spacing
-            
+           
                 if "Sulphite" in allergen_warnings:
-                
+               
                     check_symbol_positions()
                     screen.blit(sulphite, (allergen_x_position, allergen_y_position))
                     allergen_x_position = allergen_x_position + allergen_x_spacing
-            
+           
                 if "Wheat" in allergen_warnings:
-                
+               
                     check_symbol_positions()
                     screen.blit(wheat, (allergen_x_position, allergen_y_position))
                     allergen_x_position = allergen_x_position + allergen_x_spacing
-            
+           
 
 
         else:
             pygame.draw.rect(screen, RED, (10, 60, 220, 250))
             not_known_text = FONT.render("Unknown Food", True, WHITE)
             screen.blit(not_known_text, (30, 120))
-    
+   
     pygame.display.flip()
 
 pygame.quit()
