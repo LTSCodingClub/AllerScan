@@ -148,7 +148,7 @@ while running:
                 if event.key == pygame.K_RETURN:
                     print(text)
 
-                    if test == "Quit":
+                    if text == "Quit":
                       running = False
                       pygame.quit()
                     
