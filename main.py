@@ -147,6 +147,10 @@ while running:
             if active:
                 if event.key == pygame.K_RETURN:
                     print(text)
+
+                    if test == "Quit":
+                      running = False
+                      pygame.quit()
                     
                     if text in food_data:
                         result = True
