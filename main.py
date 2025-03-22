@@ -1,3 +1,10 @@
+# AllerScan
+# =========
+#
+# A simple python script to help people who suffer from allergic reactions.
+#
+#
+
 import pygame
 import sys
 import csv
@@ -18,45 +25,45 @@ RED = (255, 149, 128)
 FONT = pygame.font.Font(None, 36)
 
 # Load the icons for easy ID
-celery = pygame.image.load("symbols/celery.png")  
+celery = pygame.image.load("celery.png")  
 celery = pygame.transform.scale(celery, (ICON_WIDTH, ICON_HEIGHT))
-corn = pygame.image.load("symbols/corn.png")  
+corn = pygame.image.load("corn.png")  
 corn = pygame.transform.scale(corn, (ICON_WIDTH, ICON_HEIGHT))
-crustaceans = pygame.image.load("symbols/crustaceans.png")  
+crustaceans = pygame.image.load("crustaceans.png")  
 crustaceans = pygame.transform.scale(crustaceans, (ICON_WIDTH, ICON_HEIGHT))
-eggs = pygame.image.load("symbols/eggs.png")  
+eggs = pygame.image.load("eggs.png")  
 eggs = pygame.transform.scale(eggs, (ICON_WIDTH, ICON_HEIGHT))
-fish = pygame.image.load("symbols/fish.png")  
+fish = pygame.image.load("fish.png")  
 fish = pygame.transform.scale(fish, (ICON_WIDTH, ICON_HEIGHT))
-gluten = pygame.image.load("symbols/gluten.png")  
+gluten = pygame.image.load("gluten.png")  
 gluten = pygame.transform.scale(gluten, (ICON_WIDTH, ICON_HEIGHT))
-lupin = pygame.image.load("symbols/lupin.png")  
+lupin = pygame.image.load("lupin.png")  
 lupin = pygame.transform.scale(lupin, (ICON_WIDTH, ICON_HEIGHT))
-milk = pygame.image.load("symbols/milk.png")  
+milk = pygame.image.load("milk.png")  
 milk = pygame.transform.scale(milk, (ICON_WIDTH, ICON_HEIGHT))
-molusc = pygame.image.load("symbols/molusc.png")  
+molusc = pygame.image.load("molusc.png")  
 molusc = pygame.transform.scale(molusc, (ICON_WIDTH, ICON_HEIGHT))
-mustard = pygame.image.load("symbols/mustard.png")  
+mustard = pygame.image.load("mustard.png")  
 mustard = pygame.transform.scale(mustard, (ICON_WIDTH, ICON_HEIGHT))
-
-notVeg = pygame.image.load("symbols/notVeg.jpg")  
+notVeg = pygame.image.load("notVeg.jpg")  
 notVeg = pygame.transform.scale(notVeg, (ICON_WIDTH, ICON_HEIGHT))
-nuts = pygame.image.load("symbols/nuts.png")  
+nuts = pygame.image.load("nuts.png")  
 nuts = pygame.transform.scale(nuts, (ICON_WIDTH, ICON_HEIGHT))
-peanut = pygame.image.load("symbols/peanut.png")  
+peanut = pygame.image.load("peanut.png")  
 peanut = pygame.transform.scale(peanut, (ICON_WIDTH, ICON_HEIGHT))
-sesame = pygame.image.load("symbols/sesame.png")  
+sesame = pygame.image.load("sesame.png")  
 sesame = pygame.transform.scale(sesame, (ICON_WIDTH, ICON_HEIGHT))
-soy = pygame.image.load("symbols/soy.png")  
+soy = pygame.image.load("soy.png")  
 soy = pygame.transform.scale(soy, (ICON_WIDTH, ICON_HEIGHT))
-sulphite = pygame.image.load("symbols/sulphite.png")  
+sulphite = pygame.image.load("sulphite.png")  
 sulphite = pygame.transform.scale(sulphite, (ICON_WIDTH, ICON_HEIGHT))
-oats = pygame.image.load("symbols/oats.png")  
+oats = pygame.image.load("oats.png")  
 oats = pygame.transform.scale(oats, (ICON_WIDTH, ICON_HEIGHT))
-wheat = pygame.image.load("symbols/wheat.jpg")  
+wheat = pygame.image.load("wheat.jpg")  
 wheat = pygame.transform.scale(wheat, (ICON_WIDTH, ICON_HEIGHT))
-# Allergen symbol positions
 
+
+# Allergen symbol positions
 allergen_x_position = 0
 allergen_x_spacing = 80
 allergen_y_position = 55
@@ -103,12 +110,10 @@ def check_symbol_positions():
 
 # Load food data
 food_data = load_food_data("foods.csv")
-#print(food_data)
-
 
 # Set up display
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("Food Checker")
+pygame.display.set_caption("AllerScan")
 
 # Input box
 input_box = pygame.Rect(10, 10, 220, 40)
@@ -121,19 +126,24 @@ result = None
 allergen_warnings = []
 product_name =""
 running = True
+
 while running:
     screen.fill(WHITE)
     
     for event in pygame.event.get():
+      
         if event.type == pygame.QUIT:
             running = False
+          
         if event.type == pygame.MOUSEBUTTONDOWN:
             if input_box.collidepoint(event.pos):
                 active = not active
             else:
                 active = False
             color = color_active if active else color_inactive
+          
         if event.type == pygame.KEYDOWN:
+          
             if active:
                 if event.key == pygame.K_RETURN:
                     print(text)
@@ -159,32 +169,13 @@ while running:
     screen.blit(txt_surface, (input_box.x + 10, input_box.y + 5))
     
     # Display result
-    #
-    # Potential problem if there are too many allergens in this product!
-    #
-    # Perhaps use PyGame - make a few surfaces with suitable icons
-    #
-    # then flick between them?
-    #
+  
     if result is not None:
         if result:
          #   pygame.draw.rect(screen, color, input_box, 2)
             #txt_surface = FONT.render(product_name, True, BLACK)
             #screen.blit(txt_surface, 10,30)
-            
-            #font = pygame.font.Font('freesansbold.ttf', 32)
- 
-#             # create a text surface object,
-#             # on which text is drawn on it.
-#             text = font.render('AlerScan', True, RED, WHITE)
-#              
-#             # create a rectangular object for the
-#             # text surface object
-#             textRect = text.get_rect()
-#              
-#             # set the center of the rectangular object.
-#             textRect.center = (WIDTH // 2, HEIGHT // 2)
-#
+
             font = pygame.font.Font('freesansbold.ttf', 32)
             Product_text = font.render(product_name, True, RED, WHITE)
             #screen.blit(Product_text, (WIDTH // 2, HEIGHT // 2))
